@@ -9,8 +9,26 @@
     "target": "es2017",
     "sourceMap": true,
     "outDir": "./dist",
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "incremental": true,
-    "skipLibCheck": true
-  }
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "paths": {},
+    "strict": false,
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext",
+      "ES2021.String"
+    ],
+    "strictNullChecks": true,
+    "useUnknownInCatchVariables": false
+  },
+  "exclude": [
+    "node_modules",
+    "**/node_modules/*",
+    "test",
+    "dist",
+    "frontend"
+  ]
 }

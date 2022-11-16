@@ -1,0 +1,45 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Users {
+  uuid         String      @unique @default(uuid())
+  firstName    String      @db.VarChar(16)
+  lastName     String      @db.VarChar(16)
+  photoProfile String?
+  email        String?
+  username     String      @unique @db.VarChar(16)
+  password     String      @db.VarChar(60)
+  roles        Roles       @default(USER)
+  status       UsersStatus @default(VERIFIKASI)
+  createdAt    DateTime    @default(now())
+  updateAt     DateTime    @updatedAt
+  Order        Order?      @relation(fields: [orderUuid], references: [uuid])
+  orderUuid    String?
+}
+
+model Order {
+  uuid      String  @unique @default(uuid())
+  namaOrder String
+  User      Users[]
+}
+
+enum Roles {
+  SUPER_USER
+  ADMIN
+  USER
+}
+
+enum UsersStatus {
+  VERIFIKASI
+  AKTIF
+  TIDAK_AKTIF
+}
